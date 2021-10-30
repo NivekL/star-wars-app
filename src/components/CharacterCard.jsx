@@ -1,10 +1,18 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 
 function CharacterList({character}) {
+    const [showInfo, setShowInfo] = useState(false);
+
     return (
-        <Card>
-            {character.name}
+        <Card onClick={() => setShowInfo(!showInfo)}>
+            <CardName>{character.name}</CardName>
+            {showInfo && 
+                <CardInfo>
+                    <p>Gender: {character.gender}</p>
+                    <p>Birth year: {character.birth_year}</p>
+                </CardInfo>
+            }
         </Card>
     )
 }
@@ -12,12 +20,24 @@ function CharacterList({character}) {
 export default CharacterList
 
 const Card = styled.li`
+    cursor: pointer;
     width: 30%;
-    height: auto;
+    height: 30%;
     margin: 20px;
-    font-size: 23px;
-    padding: 40px;
+    padding: 30px;
     box-sizing: border-box;
-    border: 1px solid #ccc;
+    border-top: 1px solid #3c3c3c;
+    border-bottom: 1px solid #3c3c3c;
     background: #0e0e0e40;
+    transition: height 0.3s ease-out;
+`
+
+const CardInfo = styled.div`
+    padding-left: 10px;
+    border-top: 1px solid #303030;
+    border-bottom: 1px solid #303030;
+`
+
+const CardName = styled.p`
+    font-size: 23px;
 `
