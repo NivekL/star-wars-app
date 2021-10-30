@@ -30,6 +30,7 @@ const Card = styled.li`
     border-bottom: 1px solid #3c3c3c;
     background: #0e0e0e40;
     transition: height 0.3s ease-out;
+    font-family: 'Helvetica', sans-serif;
 `
 
 const CardInfo = styled.div`

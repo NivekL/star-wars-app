@@ -15,6 +15,10 @@ export default App;
 const Title = styled.h1`
   text-align: center;
   color: #fff;
+  font-family: 'Raleway', sans-serif;
+  font-weight: bold;
+  font-size: 40px;
+  letter-spacing: 1px;
 `
 
 const MainContainer = styled.div`
