@@ -6,6 +6,7 @@ function CharacterIndex() {
     const [characterList, setCharacterList] = useState([]);
     const [search, setSearch] = useState('');
     const [next, setNext] = useState('');
+    const [loading, setLoading] = useState(false);
     const [prev, setPrev] = useState('');
     const url = search.length > 0 ? `https://swapi.dev/api/people/?search=${search}` : 'https://swapi.dev/api/people/';
     useEffect(() => {
@@ -13,10 +14,13 @@ function CharacterIndex() {
     }, [url]);
 
     const fetchAllCharacters = async (url) => {
+        setLoading(true);
         try {
+            console.time("request time");
             const response = await fetch(url);
             const data = await response.json();
             setCharacterList(data['results']);
+            setLoading(false);
             setNext(data.next);
             setPrev(data.previous);
         } catch (error) {
@@ -32,11 +36,14 @@ function CharacterIndex() {
         <div>
             <SearchBar type="text" onChange={handleChange} value={search} placeholder="Search..." />
             <Container>
-                <List>
-                    {characterList.map((character, index) => {
-                        return <CharacterCard key={index} character={character} />
-                    })}
-                </List>
+                    {loading ? <div><p style={{color: "#fff", fontSize: "40px", height: "100%"}}>Loading...</p></div> 
+                    : <List>
+                        {characterList.map((character, index) => {
+                            return <CharacterCard key={index} character={character} />
+                        })}
+                      </List> 
+                    }
+                
             </Container>
             <Pagination>
                 <PreviousBtn className={prev === null ? "disabled" : "active"} onClick={() => fetchAllCharacters(prev)} disabled={prev === null ? true : false}>&lt;</PreviousBtn>
