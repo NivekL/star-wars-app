@@ -4,12 +4,13 @@ import CharacterCard from './CharacterCard';
 
 function CharacterIndex() {
     const [characterList, setCharacterList] = useState([]);
+    const [search, setSearch] = useState('');
     const [next, setNext] = useState('');
     const [prev, setPrev] = useState('');
-    const url = "https://swapi.dev/api/people/";
+    const url = search.length > 0 ? `https://swapi.dev/api/people/?search=${search}` : 'https://swapi.dev/api/people/';
     useEffect(() => {
         fetchAllCharacters(url);
-    }, []);
+    }, [url]);
 
     const fetchAllCharacters = async (url) => {
         try {
@@ -23,8 +24,13 @@ function CharacterIndex() {
         }
     }
 
+    const handleChange = (e) => {
+        setSearch(e.target.value);
+    }
+
     return (
         <div>
+            <SearchBar type="text" onChange={handleChange} value={search} placeholder="Search..." />
             <Container>
                 <List>
                     {characterList.map((character, index) => {
@@ -41,6 +47,30 @@ function CharacterIndex() {
 }
 
 export default CharacterIndex
+
+const SearchBar = styled.input`
+    display: flex;
+    justify-self: center;
+    margin: 0 auto;
+    width: 30%;
+    padding: 10px;
+    background: #14141494;
+    font-size: 21px;
+    letter-spacing: 1px;
+    color: #dfbc10;
+    font-family: 'Raleway';
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    border-left: 3px solid #ccc;
+
+    @media screen and (max-width: 1200px) and (min-width: 768px) {
+        width: 50%;
+    }
+    @media screen and (max-width: 767px) {
+        width: 80%;
+    }
+`
 
 const Container = styled.div`
     display: flex;

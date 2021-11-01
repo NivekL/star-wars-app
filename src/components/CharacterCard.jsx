@@ -31,6 +31,13 @@ const Card = styled.li`
     background: #0e0e0e40;
     transition: height 0.3s ease-out;
     font-family: 'Helvetica', sans-serif;
+
+    @media screen and (max-width: 1200px) and (min-width: 768px) {
+        width: 43%;
+    }
+    @media screen and (max-width: 767px) {
+        width: 100%;
+    }
 `
 
 const CardInfo = styled.div`
