@@ -14,12 +14,15 @@ function CharacterIndex() {
     }, [url]);
 
     const fetchAllCharacters = async (url) => {
-        setLoading(true);
+       const timer = setTimeout(() => {
+            setLoading(true);
+        }, 900);
         try {
             console.time("request time");
             const response = await fetch(url);
             const data = await response.json();
             setCharacterList(data['results']);
+            clearTimeout(timer);
             setLoading(false);
             setNext(data.next);
             setPrev(data.previous);
@@ -64,6 +67,7 @@ const LoadingBar = styled.div`
     p {
         color: #fff; 
         font-size: 40px;
+        font-family: 'Raleway', sans-serif;
     }
 `;
 
