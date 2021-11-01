@@ -36,7 +36,8 @@ function CharacterIndex() {
         <div>
             <SearchBar type="text" onChange={handleChange} value={search} placeholder="Search..." />
             <Container>
-                    {loading ? <div><p style={{color: "#fff", fontSize: "40px", height: "100%"}}>Loading...</p></div> 
+                    {loading ? 
+                    <LoadingBar><p>Loading...</p></LoadingBar> 
                     : <List>
                         {characterList.map((character, index) => {
                             return <CharacterCard key={index} character={character} />
@@ -54,6 +55,17 @@ function CharacterIndex() {
 }
 
 export default CharacterIndex
+
+const LoadingBar = styled.div`
+    height: 85vh;
+    display: flex;
+    align-items: center;
+
+    p {
+        color: #fff; 
+        font-size: 40px;
+    }
+`;
 
 const SearchBar = styled.input`
     display: flex;
